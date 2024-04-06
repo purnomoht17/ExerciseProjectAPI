@@ -70,7 +70,6 @@ async function createUser(name, email, password) {
  */
 async function updateUser(id, name, email) {
   const user = await usersRepository.getUser(id);
-
   // User not found
   if (!user) {
     return null;
@@ -83,6 +82,11 @@ async function updateUser(id, name, email) {
   }
 
   return true;
+}
+
+async function checkEmail(email){
+  const existingUser = await usersRepository.checkEmailExists(email);
+  return !!existingUser;
 }
 
 /**
@@ -113,4 +117,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  checkEmail
 };
